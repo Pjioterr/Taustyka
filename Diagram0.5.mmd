@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant User as Użytkownik
+    participant Browser as Przeglądarka
+    participant Server as Serwer
+
+    User->>Browser: Wchodzi na https://studies.cs.helsinki.fi/exampleapp/spa
+    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate Server
+    Server-->>Browser: HTML dokument (SPA)
+    deactivate Server
+
+    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate Server
+    Server-->>Browser: plik CSS
+    deactivate Server
+
+    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate Server
+    Server-->>Browser: plik JavaScript (SPA)
+    deactivate Server
+
+    Note right of Browser: Przeglądarka zaczyna wykonywać kod JavaScript aplikacji SPA
+
+    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate Server
+    Server-->>Browser: Lista notatek w formacie JSON
+    deactivate Server
+
+    Note right of Browser: Przeglądarka renderuje widok notatek w aplikacji SPA
