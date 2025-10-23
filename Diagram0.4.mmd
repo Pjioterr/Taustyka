@@ -1,19 +1,33 @@
 sequenceDiagram
-    participant User as Użytkownik
-    participant Browser as Przeglądarka
-    participant Server as Serwer
+    participant browser as Przeglądarka
+    participant server as Serwer
+    
 
-    Użytkownik->>Browser: Wpisuje treść notatki w pole tekstowe
-    Użytkownik->>Browser: Kliknięcie przycisku "Zapisz"
-    Browser->>Server: POST https://studies.cs.helsinki.fi/exampleapp/notes (nowa notatka)
-    activate Server
-    Server-->>Browser: Potwierdzenie zapisu (np. status 201 Created)
-    deactivate Server
+    Note over browser: Użytkownik wpisuje nową notatkę i klika "Zapisz"!
 
-    Note right of Browser: Po potwierdzeniu, przeglądarka może pobrać aktualne dane JSON
-    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
-    activate Server
-    Server-->>Browser: Zaktualizowana lista notatek w formacie JSON
-    deactivate Server
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+    activate server
+    server-->>browser: HTML z aktualną listą notatek!
+    deactivate server
 
-    Note right of Browser: Przeglądarka renderuje nową listę notatek
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+    activate server
+    server-->>browser: HTML dokument (home page)!
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: Plik CSS!
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: Plik JavaScript!
+    deactivate server
+
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: JSON z listą notatek
+    deactivate server
+
+    Note over browser: Przeglądarka renderuje po raz kolejny całą listę notatek!
