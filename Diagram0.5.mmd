@@ -1,29 +1,27 @@
 sequenceDiagram
-    participant User as Użytkownik
-    participant Browser as Przeglądarka
-    participant Server as Serwer
+    participant browser as Przeglądarka
+    participant server as Serwer
 
-    User->>Browser: Wchodzi na https://studies.cs.helsinki.fi/exampleapp/spa
-    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
-    activate Server
-    Server-->>Browser: HTML dokument (SPA)
-    deactivate Server
+    Note over browser: Użytkownik otwiera aplikację SPA!
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: HTML dokument SPA!
+    deactivate server
 
-    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
-    activate Server
-    Server-->>Browser: plik CSS
-    deactivate Server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: Plik CSS!
+    deactivate server
 
-    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
-    activate Server
-    Server-->>Browser: plik JavaScript (SPA)
-    deactivate Server
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+    activate server
+    server-->>browser: Plik JavaScript SPA!
+    deactivate server
 
-    Note right of Browser: Przeglądarka zaczyna wykonywać kod JavaScript aplikacji SPA
+    Note over browser: JavaScript SPA uruchamia się i pobiera listę notatek
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: JSON z pełną listą notatek!
+    deactivate server
 
-    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
-    activate Server
-    Server-->>Browser: Lista notatek w formacie JSON
-    deactivate Server
-
-    Note right of Browser: Przeglądarka renderuje widok notatek w aplikacji SPA
+    Note over browser: JavaScript renderuje listę notatek w sposób dynamiczny!
