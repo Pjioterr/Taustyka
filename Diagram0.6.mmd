@@ -1,20 +1,11 @@
 sequenceDiagram
-    participant User as Użytkownik
-    participant Browser as Przeglądarka (SPA)
-    participant Server as Serwer
+    participant browser as Przeglądarka
+    participant server as Serwer
 
-    User->>Browser: Wpisuje nową notatkę w formularzu
-    User->>Browser: Kliknięcie przycisku "Zapisz"
-    Browser->>Server: POST https://studies.cs.helsinki.fi/exampleapp/notes (nowa notatka)
-    activate Server
-    Server-->>Browser: Potwierdzenie zapisu (status 201 Created)
-    deactivate Server
+    Note over browser: Użytkownik wpisuje nową notatkę i wybiera "Save"!
+    browser->>server: POST https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+    activate server
+    server-->>browser: JSON nowej notatki z ID oraz datą!
+    deactivate server
 
-    Note right of Browser: SPA aktualizuje lokalny stan aplikacji
-
-    Browser->>Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
-    activate Server
-    Server-->>Browser: Zaktualizowana lista notatek w formacie JSON
-    deactivate Server
-
-    Note right of Browser: SPA renderuje nową listę notatek bez przeładowania strony
+    Note over browser: JavaScript dodaje nową notatkę do listy w sposób dynamiczny, bez przeładowania strony!
